@@ -33,6 +33,62 @@ def test_nest_monitoring_report(tmp_path):
     env["KB_CONSERVANCIES"] = json.dumps({"nc": "NC_"})
     env["INPUT_DATA"] = "nc\n"
 
+    env["NC_COLS"] = json.dumps(
+        [
+            "nest_id",
+            "observer",
+            "date",
+            "time",
+            "latitude",
+            "longitude",
+            "method",
+            "status",
+            "species",
+            "condition",
+            "incubating",
+            "nest_outcome",
+            "adult_id_male",
+            "picture_taken",
+            "age_of_chick_1",
+            "age_of_chick_2",
+            "age_of_chick_3",
+            "age_of_chick_4",
+            "number_of_eggs",
+            "adult_id_female",
+            "number_of_chicks",
+            "number_of_fledglings",
+            "eggs_chicks_fledglings",
+            "number_of_adults_present",
+            "breeding_attempt",
+            "comments",
+            "serial_number",
+        ]
+    )
+    """    
+    env["NEST_ID_COLUMNS"] = json.dumps(["nest_id", "serial_number", "nest_location"])
+    env["NEST_CHECK_COLUMNS"] = json.dumps(["nest_id", "observer", "date", "time", "status", "condition"])
+    env["INACTIVE_COLUMNS"] = json.dumps(
+         [
+            "nest_id", 
+            "observer",
+            "nest_location",
+            "date", "time",
+            "latitude",
+            "longitude"
+         ]
+    )
+    env["SUCCESS_FAIL_COLUMNS"] = json.dumps([
+        "nest_id", "date", "species", "status", "latitude", "longitude", 
+        "altitude", "habitat", "tree_species", "tree_or_cliff_height", 
+        "height", "position", "condition"
+    ])
+    env["IN_PROGRESS_COLUMNS"] = json.dumps([
+        "nest_id", "date", "species", "status", "latitude", "longitude", 
+        "altitude", "habitat", "tree_species", "tree_or_cliff_height", "height", 
+        "position", "condition", "incubating", "number_of_eggs", "number_of_chicks"
+    ])
+    """
+
     # Define expected sheets
     env["REQUIRED_SHEETS"] = json.dumps(
         [
