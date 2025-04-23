@@ -32,9 +32,6 @@ jobs:
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PYTHONPATH:${{ github.workspace }}" >> $GITHUB_ENV
     - uses: pre-commit/action@v3.0.0
-    - name: Install PlayWright
-      run: |
-        python -m playwright install chromium --with-deps
     - name: Decode and set environment variable
       run: |
         # Decode base64 secret and store in ENV_VAR
