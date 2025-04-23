@@ -191,15 +191,12 @@ def load_env_files():
 def setup_logging(context: ProcessingContext, conservancy: str) -> logging.Logger:
     """
     Set up logging to both console and file.
-
     This function configures a logger with handlers for both console and file output.
     The log file is named based on the conservancy and date range, and is stored
     in a logs directory within the configured output directory.
-
     Args:
         context (ProcessingContext): The processing context containing configuration
         conservancy (str): The name of the conservancy for log file naming
-
     Returns:
         logging.Logger: Configured logger instance
     """
@@ -208,20 +205,22 @@ def setup_logging(context: ProcessingContext, conservancy: str) -> logging.Logge
     until = context.config.end_date
     date_range = f"{since.strftime('%Y%m%d')}_{until.strftime('%Y%m%d')}"
     log_filename = f"{conservancy}_{date_range}.log"
-
     # Create log directory
     log_dir = os.path.join(context.config.output_dir, "Logs")
     os.makedirs(log_dir, exist_ok=True)
-
     log_path = os.path.join(log_dir, log_filename)
 
     # Configure logger
     logger = logging.getLogger("nest_monitoring")
     logger.setLevel(logging.DEBUG)
 
+    # Prevent propagation to root logger to avoid duplicate logs
+    logger.propagate = False
+
     # Clear any existing handlers
     if logger.handlers:
-        logger.handlers = []
+        for handler in logger.handlers[:]:
+            logger.removeHandler(handler)
 
     # Create console handler
     console_handler = logging.StreamHandler()
@@ -240,7 +239,6 @@ def setup_logging(context: ProcessingContext, conservancy: str) -> logging.Logge
     logger.addHandler(file_handler)
 
     logger.info(f"Logging initialized. Log file: {log_path}")
-
     return logger
 
 
