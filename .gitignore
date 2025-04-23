@@ -1,0 +1,16 @@
+.ipynb_checkpoints
+.env
+Ecoscope-Outputs/
+SMART-Outputs/
+__pycache__/
+.vscode
+.DS_Store
+map-files/
+geo_layers/
+*.log
+logs/
+.github/
+.github/workflows/link_issue.yml
+*.ipynb
+ATE/.env2
+.tmp
