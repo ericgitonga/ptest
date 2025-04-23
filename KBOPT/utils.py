@@ -376,8 +376,7 @@ def process_multiple_species(
         Dict[str, SpeciesResult]: Dictionary mapping species names to their processed results
     """
     # Filter the dataframe for the specified species and columns
-    available_cols = [col for col in context.config.nest_check_columns if col in df.columns]
-    species_data = df[df["species"].isin(species_list)][available_cols]
+    species_data = df[df["species"].isin(species_list)][context.config.nest_check_columns]
 
     # Apply the processing function to each species group
     results = {}

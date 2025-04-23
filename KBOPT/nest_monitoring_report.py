@@ -86,7 +86,7 @@ def main():
         return 1
 
     startup_logger.info("Conservancy code: lc mmnr mnc mt nc oc okc omc pca sc snp nca")
-    conservancy_key = input("Enter the conservancy code from the list above: ")
+    conservancy_key = "nc"  # input("Enter the conservancy code from the list above: ")
     conservancy = config.conservancies[conservancy_key]
 
     # Create store_dir based on date range
@@ -243,9 +243,6 @@ def main():
 
     conservancy_checks.rename(columns={"serial_number": "checks_serial_number"}, inplace=True)
 
-    logger.info(conservancy_checks.shape)
-    logger.info(conservancy_checks.columns)
-
     # Nest check for selected conservancy merged with nest_ids to get lat/lon
     nest_check = pd.merge(nests, conservancy_checks, on="nest_id", how="right")
     logger.info(f"After merging with nest IDs, nest_check has {len(nest_check)} rows")
@@ -287,6 +284,8 @@ def main():
 
     # Process species data
     all_results = process_multiple_species(df=nest_check, species_list=species_list, context=context)
+    logger.info(all_results)
+    #    quit()
 
     # Concatenate results for all species
     check_dfs = []
