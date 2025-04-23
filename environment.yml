@@ -11,3 +11,4 @@ dependencies:
   - geopandas<=0.14.2
   - numpy<2.0
   - python-dotenv
+  - openpyxl
