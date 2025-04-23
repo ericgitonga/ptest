@@ -183,6 +183,9 @@ def main():
     nest_checks.columns = [col.replace("event_details__", "") for col in nest_checks.columns]
     nest_checks.columns = [col.replace("nest_check_", "") for col in nest_checks.columns]
 
+    logger.info(f"nest_checks columns: {nest_checks.columns.tolist()}")
+    logger.info(f"nest_checks shape: {nest_checks.shape}")
+
     # Check to see if nest_checks has an observer column. If it does not, then add the column.
     if "observer" not in nest_checks.columns:
         normalize_column(nest_checks, "reported_by")
@@ -230,9 +233,6 @@ def main():
     nest_checks[["date", "time"]] = nest_checks["time"].apply(lambda x: pd.Series(separate(x)))
 
     nest_checks = nest_checks[config.nc_columns]
-
-    logger.info(f"nest_checks columns: {nest_checks.columns.tolist()}")
-    logger.info(f"nest_checks shape: {nest_checks.shape}")
 
     nest_checks = nest_checks.dropna(subset=["nest_id", "status", "condition"])
     logger.info(f"After dropping rows with NaN nest_id, status, or condition, {len(nest_checks)} records remain")
