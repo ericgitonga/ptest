@@ -33,11 +33,6 @@ def test_nest_monitoring_report(tmp_path):
     env["KB_CONSERVANCIES"] = json.dumps({"nc": "NC_"})
     env["INPUT_DATA"] = "nc\n"
 
-    # Debug output to check if ER credentials are in the environment
-    print(f"ER_USERNAME in environment: {'ER_USERNAME' in env}")
-    print(f"ER_PASSWORD in environment: {'ER_PASSWORD' in env}")
-    print(f"ER_SERVER in environment: {'ER_SERVER' in env}")
-
     # Define expected sheets
     env["REQUIRED_SHEETS"] = json.dumps(
         [
