@@ -66,29 +66,44 @@ def test_nest_monitoring_report(tmp_path):
     )
 
     env["NEST_ID_COLUMNS"] = json.dumps(["nest_id", "serial_number", "nest_location"])
-    """
     env["NEST_CHECK_COLUMNS"] = json.dumps(["nest_id", "observer", "date", "time", "status", "condition"])
-    env["INACTIVE_COLUMNS"] = json.dumps(
-         [
-            "nest_id", 
-            "observer",
-            "nest_location",
-            "date", "time",
+    env["SUCCESS_FAIL_COLUMNS"] = json.dumps(
+        [
+            "nest_id",
+            "date",
+            "species",
+            "status",
             "latitude",
-            "longitude"
-         ]
+            "longitude",
+            "altitude",
+            "habitat",
+            "tree_species",
+            "tree_or_cliff_height",
+            "height",
+            "position",
+            "condition",
+        ]
     )
-    env["SUCCESS_FAIL_COLUMNS"] = json.dumps([
-        "nest_id", "date", "species", "status", "latitude", "longitude", 
-        "altitude", "habitat", "tree_species", "tree_or_cliff_height", 
-        "height", "position", "condition"
-    ])
-    env["IN_PROGRESS_COLUMNS"] = json.dumps([
-        "nest_id", "date", "species", "status", "latitude", "longitude", 
-        "altitude", "habitat", "tree_species", "tree_or_cliff_height", "height", 
-        "position", "condition", "incubating", "number_of_eggs", "number_of_chicks"
-    ])
-    """
+    env["IN_PROGRESS_COLUMNS"] = json.dumps(
+        [
+            "nest_id",
+            "date",
+            "species",
+            "status",
+            "latitude",
+            "longitude",
+            "altitude",
+            "habitat",
+            "tree_species",
+            "tree_or_cliff_height",
+            "height",
+            "position",
+            "condition",
+            "incubating",
+            "number_of_eggs",
+            "number_of_chicks",
+        ]
+    )
 
     # Define expected sheets
     env["REQUIRED_SHEETS"] = json.dumps(
