@@ -22,7 +22,9 @@ def test_nest_monitoring_report(tmp_path):
     The test provides "nc" as the conservancy code when prompted via stdin.
     """
     # Set up environment variables
-    env = os.environ.copy()
+    env = os.environ.copy()  # This copies existing env vars including secrets
+
+    # Add test-specific environment variables
     env["OUTPUT_DIR"] = str(tmp_path)
     env["START"] = "2024-01-01T00:00:00Z"
     env["END"] = "2024-12-31T11:59:59Z"
@@ -30,6 +32,11 @@ def test_nest_monitoring_report(tmp_path):
     env["ER_NEST_CHECK_EVENT"] = "nest_check"
     env["KB_CONSERVANCIES"] = json.dumps({"nc": "NC"})
     env["INPUT_DATA"] = "nc\n"
+
+    # Debug output to check if ER credentials are in the environment
+    print(f"ER_USERNAME in environment: {'ER_USERNAME' in env}")
+    print(f"ER_PASSWORD in environment: {'ER_PASSWORD' in env}")
+    print(f"ER_SERVER in environment: {'ER_SERVER' in env}")
 
     # Define expected sheets
     env["REQUIRED_SHEETS"] = json.dumps(
