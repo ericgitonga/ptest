@@ -21,14 +21,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup Micromamba
-      uses: mamba-org/setup-micromamba@v2.0.3
-      with:
-        environment-file: environment.yml
-        cache-environment: true
-        init-shell: bash
-        create-args: >-
-          python=${{ matrix.python-version }}
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PYTHONPATH:${{ github.workspace }}" >> $GITHUB_ENV
     - uses: pre-commit/action@v3.0.0
