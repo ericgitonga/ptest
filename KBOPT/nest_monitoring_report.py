@@ -174,7 +174,6 @@ def main():
     logger.info(f"After removing NaN nest_ids, {len(nest_ids)} records remain")
 
     nests = nest_ids[nest_ids["nest_id"].str.startswith(conservancy)][config.nest_id_columns]
-    logger.info(conservancy)
     logger.info(f"Found {len(nests)} nest IDs for conservancy {conservancy}")
 
     # Transform nest_checks DataFrame

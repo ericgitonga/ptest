@@ -28,7 +28,7 @@ def test_nest_monitoring_report(tmp_path):
     env["END"] = "2024-12-31T11:59:59Z"
     env["ER_NEST_ID_EVENT"] = "nest_id"
     env["ER_NEST_CHECK_EVENT"] = "nest_check"
-    env["KB_CONSERVANCIES"] = json.dumps({"nc": "NC_"})
+    env["KB_CONSERVANCIES"] = json.dumps({"nc": "NC"})
     env["INPUT_DATA"] = "nc\n"
 
     # Define expected sheets
@@ -77,7 +77,7 @@ def test_nest_monitoring_report(tmp_path):
 
     # Check if output file was created
     expected_output_file = os.path.join(
-        tmp_path, "Analysis Output", "2024-01-01 to 2024-12-31", "NC_nest_monitoring_report.xlsx"
+        tmp_path, "Analysis Output", "2024-01-01 to 2024-12-31", "NCnest_monitoring_report.xlsx"
     )
     assert os.path.exists(expected_output_file), f"Output file not found at {expected_output_file}"
 
