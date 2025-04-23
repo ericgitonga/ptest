@@ -1,0 +1,53 @@
+name: Build and test
+
+on: 
+  push:
+    branches: "main" 
+  pull_request:
+    branches: "main"
+  workflow_dispatch:
+
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
+    strategy:
+      max-parallel: 5
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Micromamba
+      uses: mamba-org/setup-micromamba@v2.0.3
+      with:
+        environment-file: environment.yml
+        cache-environment: true
+        init-shell: bash
+        create-args: >-
+          python=${{ matrix.python-version }}
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$PYTHONPATH:${{ github.workspace }}" >> $GITHUB_ENV
+    - uses: pre-commit/action@v3.0.0
+    - name: Install PlayWright
+      run: |
+        python -m playwright install chromium --with-deps
+    - name: Decode and set environment variable
+      run: |
+        # Decode base64 secret and store in ENV_VAR
+        echo ${{ secrets.EE_PRIVATE_KEY }} | base64 -d >> decoded_config.json
+    - name: Test with pytest
+      run: |
+        pytest -v -r s --color=yes 
+      env:
+        ER_SERVER: ${{ secrets.ER_SERVER }}
+        ER_USERNAME: ${{ secrets.ER_USERNAME }}
+        ER_PASSWORD: ${{ secrets.ER_PASSWORD }}
+        SM_SERVER: ${{ secrets.SM_SERVER }}
+        SM_USERNAME: ${{ secrets.SM_USERNAME }}
+        SM_PASSWORD: ${{ secrets.SM_PASSWORD }}
+        EE_SERVICE_ACCOUNT: ${{ secrets.EE_SERVICE_ACCOUNT }}
+        EE_PRIVATE_KEY_FILE: decoded_config.json
