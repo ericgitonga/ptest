@@ -43,8 +43,3 @@ jobs:
         ER_SERVER: ${{ secrets.ER_SERVER }}
         ER_USERNAME: ${{ secrets.ER_USERNAME }}
         ER_PASSWORD: ${{ secrets.ER_PASSWORD }}
-        SM_SERVER: ${{ secrets.SM_SERVER }}
-        SM_USERNAME: ${{ secrets.SM_USERNAME }}
-        SM_PASSWORD: ${{ secrets.SM_PASSWORD }}
-        EE_SERVICE_ACCOUNT: ${{ secrets.EE_SERVICE_ACCOUNT }}
-        EE_PRIVATE_KEY_FILE: decoded_config.json
