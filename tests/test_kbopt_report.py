@@ -64,8 +64,9 @@ def test_nest_monitoring_report(tmp_path):
             "serial_number",
         ]
     )
-    """    
+
     env["NEST_ID_COLUMNS"] = json.dumps(["nest_id", "serial_number", "nest_location"])
+    """
     env["NEST_CHECK_COLUMNS"] = json.dumps(["nest_id", "observer", "date", "time", "status", "condition"])
     env["INACTIVE_COLUMNS"] = json.dumps(
          [
