@@ -230,8 +230,6 @@ def main():
 
     nest_checks = nest_checks[config.nc_columns]
 
-    logger.info(nest_checks.shape)
-
     nest_checks = nest_checks.dropna(subset=["nest_id", "status", "condition"])
     logger.info(f"After dropping rows with NaN nest_id, status, or condition, {len(nest_checks)} records remain")
 
@@ -244,6 +242,9 @@ def main():
     logger.info(f"Found {len(conservancy_checks)} nest checks for conservancy {conservancy}")
 
     conservancy_checks.rename(columns={"serial_number": "checks_serial_number"}, inplace=True)
+
+    logger.info(conservancy_checks.shape)
+    logger.info(conservancy_checks.columns)
 
     # Nest check for selected conservancy merged with nest_ids to get lat/lon
     nest_check = pd.merge(nests, conservancy_checks, on="nest_id", how="right")
